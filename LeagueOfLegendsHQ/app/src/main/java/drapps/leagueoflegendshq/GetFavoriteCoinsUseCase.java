@@ -7,6 +7,7 @@ import java.util.List;
 
 import drapps.leagueoflegendshq.base.BasePresenter;
 import drapps.leagueoflegendshq.coinlist.Coin;
+import drapps.leagueoflegendshq.models.CoinCapResponse;
 import drapps.leagueoflegendshq.models.CoinsResponse;
 import drapps.leagueoflegendshq.models.Service;
 import drapps.leagueoflegendshq.models.realmobjects.FavoriteCoin;
@@ -27,6 +28,34 @@ public class GetFavoriteCoinsUseCase extends BaseGeneralUseCase{
         super(context, serviceApi, presenter);
         realm = Realm.getDefaultInstance();
     }
+
+    public List<Coin> getFavoriteCoins(){
+        for(FavoriteCoin fc : realm.where(FavoriteCoin.class).findAll()) {
+            rx.Observable<List<CoinCapResponse>> observable = serviceApi.getCoinsFromCoinCap();
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<List<CoinCapResponse>>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onNext(List<CoinCapResponse> response) {
+                            presenter.onLoadedCoins(response);
+                            Log.i("COIN", response.get(0));
+                        }
+                    });
+        }
+
+    }
+
+
 
     /*public List<Coin> getFavoriteCoins(){
         for(FavoriteCoin fc : realm.where(FavoriteCoin.class).findAll()) {
