@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.marketlist;
 
 import android.content.Context;
 
@@ -12,7 +12,7 @@ import drapps.leagueoflegendshq.usecases.GetMarketsFromMarketUseCase;
 /**
  * Created by Diogo on 03/02/2018.
  */
-public class MarketListPresenter extends BasePresenter implements ContractMarketList.Presenter{
+public class MarketListPresenter extends BasePresenter implements ContractMarketList.Presenter {
 
     GetMarketsFromMarketUseCase useCase;
     ContractMarketList.View view;

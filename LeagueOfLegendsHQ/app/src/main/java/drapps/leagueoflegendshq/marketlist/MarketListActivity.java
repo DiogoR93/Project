@@ -1,10 +1,11 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.marketlist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
+import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.base.BaseCustomActivity;
 import drapps.leagueoflegendshq.base.BaseCustomFragment;
 import drapps.leagueoflegendshq.exchangeslist.AllListFragment;

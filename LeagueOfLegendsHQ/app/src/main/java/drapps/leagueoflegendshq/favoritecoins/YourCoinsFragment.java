@@ -1,9 +1,8 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.favoritecoins;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,9 +12,12 @@ import android.widget.Button;
 
 import java.util.List;
 
+import drapps.leagueoflegendshq.adapters.FavoriteCoinsAdapter;
+import drapps.leagueoflegendshq.MainApplication;
+import drapps.leagueoflegendshq.marketlist.MarketListActivity;
+import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.base.BaseCustomFragment;
 import drapps.leagueoflegendshq.coinlist.Coin;
-import drapps.leagueoflegendshq.models.realmobjects.FavoriteCoin;
 
 /**
  * Created by Diogo on 07/02/2018.

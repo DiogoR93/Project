@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.favoritecoins;
 
 import android.content.Context;
 
@@ -7,6 +7,7 @@ import java.util.List;
 import drapps.leagueoflegendshq.base.BasePresenter;
 import drapps.leagueoflegendshq.coinlist.Coin;
 import drapps.leagueoflegendshq.contracts.IView;
+import drapps.leagueoflegendshq.usecases.GetFavoriteCoinsUseCase;
 
 /**
  * Created by Diogo on 11/02/2018.

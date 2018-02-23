@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import drapps.leagueoflegendshq.base.BasePresenter;
+import drapps.leagueoflegendshq.models.CoinCapResponse;
 import drapps.leagueoflegendshq.models.CoinsResponse;
 import drapps.leagueoflegendshq.models.Market;
 import drapps.leagueoflegendshq.models.MarketsFromExchangeResponse;
@@ -26,10 +27,10 @@ public class GetAllCoinsUseCase  extends BaseGeneralUseCase{
     }
 
     public void requestAllCoins() {
-        rx.Observable<CoinsResponse> observable = serviceApi.getCoins();
+        rx.Observable<List<CoinCapResponse>> observable = serviceApi.getCoinsFromCoinCap();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CoinsResponse>() {
+                .subscribe(new Subscriber<List<CoinCapResponse>>() {
                     @Override
                     public void onCompleted() {
 
@@ -41,9 +42,9 @@ public class GetAllCoinsUseCase  extends BaseGeneralUseCase{
                     }
 
                     @Override
-                    public void onNext(CoinsResponse response) {
-                        presenter.onLoadedCoins(response.getResults());
-                        Log.i("COIN", response.getResults().get(0).getName());
+                    public void onNext(List<CoinCapResponse> response) {
+                        presenter.onLoadedCoins(response);
+                        Log.i("COIN", response.get(0).getChangePercentage()+"");
                     }
                 });
     }

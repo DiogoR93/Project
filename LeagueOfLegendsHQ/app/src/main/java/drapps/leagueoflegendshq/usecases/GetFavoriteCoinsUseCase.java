@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.usecases;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,12 +6,9 @@ import android.util.Log;
 import java.util.List;
 
 import drapps.leagueoflegendshq.base.BasePresenter;
-import drapps.leagueoflegendshq.coinlist.Coin;
 import drapps.leagueoflegendshq.models.CoinCapResponse;
-import drapps.leagueoflegendshq.models.CoinsResponse;
 import drapps.leagueoflegendshq.models.Service;
 import drapps.leagueoflegendshq.models.realmobjects.FavoriteCoin;
-import drapps.leagueoflegendshq.usecases.BaseGeneralUseCase;
 import io.realm.Realm;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,7 +26,7 @@ public class GetFavoriteCoinsUseCase extends BaseGeneralUseCase{
         realm = Realm.getDefaultInstance();
     }
 
-    public List<Coin> getFavoriteCoins(){
+    public void getFavoriteCoins(){
         for(FavoriteCoin fc : realm.where(FavoriteCoin.class).findAll()) {
             rx.Observable<List<CoinCapResponse>> observable = serviceApi.getCoinsFromCoinCap();
             observable.subscribeOn(Schedulers.io())
@@ -48,7 +45,7 @@ public class GetFavoriteCoinsUseCase extends BaseGeneralUseCase{
                         @Override
                         public void onNext(List<CoinCapResponse> response) {
                             presenter.onLoadedCoins(response);
-                            Log.i("COIN", response.get(0));
+                            Log.i("COIN", response.get(0).getChangePercentage());
                         }
                     });
         }

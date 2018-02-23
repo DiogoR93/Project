@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.favoritecoins;
 
 import java.util.List;
 

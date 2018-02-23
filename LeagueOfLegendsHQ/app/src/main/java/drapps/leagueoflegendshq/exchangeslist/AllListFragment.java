@@ -13,15 +13,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import drapps.leagueoflegendshq.MarketListActivity;
-import drapps.leagueoflegendshq.MarketListFragment;
+import drapps.leagueoflegendshq.marketlist.MarketListActivity;
 import drapps.leagueoflegendshq.base.BaseCustomFragment;
 import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.coinlist.CoinListFragment;
 import drapps.leagueoflegendshq.exchangeslist.contracts.ContractAllListMain;
 import drapps.leagueoflegendshq.models.Exchange;
-import drapps.leagueoflegendshq.models.Market;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -33,7 +30,6 @@ public class AllListFragment extends BaseCustomFragment implements ContractAllLi
 
     AllListPresenter presenter;
     RecyclerView rvOfList;
-    TextView exchangeName;
     ExchangeAdaper adapter;
 
 
@@ -43,14 +39,6 @@ public class AllListFragment extends BaseCustomFragment implements ContractAllLi
         View view = inflater.inflate(R.layout.rv_layout, container, false);
         setupPresenter();
         bindViews(view);
-        exchangeName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), MarketListActivity.class));
-
-            }
-        });
-
 
          return view;
     }
@@ -74,7 +62,6 @@ public class AllListFragment extends BaseCustomFragment implements ContractAllLi
     public void bindViews(View view) {
         rvOfList = (RecyclerView) view.findViewById(R.id.rv_widget);
         rvOfList.setLayoutManager(new LinearLayoutManager(getContext()));
-        exchangeName = (TextView) view.findViewById(R.id.exchange_name);
         adapter = new ExchangeAdaper(getContext());
         rvOfList.setAdapter(adapter);
 

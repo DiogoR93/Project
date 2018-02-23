@@ -1,6 +1,7 @@
 package drapps.leagueoflegendshq.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import drapps.leagueoflegendshq.CurrencyUtils;
 import drapps.leagueoflegendshq.R;
-import drapps.leagueoflegendshq.coinlist.Coin;
-import drapps.leagueoflegendshq.models.Exchange;
+import drapps.leagueoflegendshq.models.CoinCapResponse;
+import drapps.leagueoflegendshq.models.CoinsResponse;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
@@ -26,8 +27,9 @@ import rx.subjects.PublishSubject;
 public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
 
     public Context context;
-    List<Coin> list = new ArrayList<>();
-    PublishSubject<Coin> publishSubject = PublishSubject.create();
+    List<CoinCapResponse> listFiltered = new ArrayList<>();
+    List<CoinCapResponse> list = new ArrayList<>();
+    PublishSubject<CoinCapResponse> publishSubject = PublishSubject.create();
 
     public CoinAdaper(Context context) {
         this.context = context;
@@ -41,51 +43,72 @@ public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
 
     @Override
     public void onBindViewHolder(CoinVH holder, final int position) {
-        if(!list.get(position).isFiat()) {
-            holder.txtName.setText(list.get(position).getName());
+            holder.txtName.setText(listFiltered.get(position).getName()+ " ("+ listFiltered.get(position).getSymbol() + ")");
+            holder.txtChangeCap.setText(listFiltered.get(position).getChangePercentage());
+            if(listFiltered.get(position).getChangePercentage().contains("-")){
+                holder.txtChangeCap.setTextColor(ContextCompat.getColor(context, R.color.negative_red));
+            }else{
+                holder.txtChangeCap.setTextColor(ContextCompat.getColor(context, R.color.positive_green));
+            }
+            holder.txtValue.setText(CurrencyUtils.toSelectedCurrency(listFiltered.get(position).getPrice()));
+
             try {
-                Picasso.with(context).load(context.getResources().getIdentifier(list.get(position).getSymbol().toLowerCase(), "drawable", context.getPackageName())).fit().into(holder.ivIcon);
+                Picasso.with(context).load(context.getResources().getIdentifier(listFiltered.get(position).getSymbol().toLowerCase(), "drawable", context.getPackageName())).fit().into(holder.ivIcon);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    publishSubject.onNext(list.get(position));
+                    publishSubject.onNext(listFiltered.get(position));
                 }
             });
-        }else{
-            holder.itemView.setVisibility(View.GONE);
-        }
     }
 
     public class CoinVH extends RecyclerView.ViewHolder{
 
         public TextView txtName;
+        TextView txtChangeCap;
         public ImageView ivIcon;
+        TextView txtValue;
 
         public CoinVH(View itemView) {
             super(itemView);
             ivIcon = (ImageView) itemView.findViewById(R.id.iv_coin);
             txtName = (TextView) itemView.findViewById(R.id.txt_coin_name);
+            txtChangeCap = (TextView) itemView.findViewById(R.id.txt_coin_change);
+            txtValue = (TextView) itemView.findViewById(R.id.txt_coin_price);
         }
     }
 
-    public void swapContent(List<Coin> list){
+    public void swapContent(List<CoinCapResponse> list){
+        this.listFiltered.clear();
         this.list.clear();
-        for(Coin coin : list){
-            if(!coin.isFiat())
-                this.list.add(coin);
+        this.listFiltered.addAll(list);
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void applyFilter(String filter){
+        this.listFiltered.clear();
+        if(filter.equals("")){
+            listFiltered.addAll(list);
+        }else {
+            for (CoinCapResponse cr : list) {
+                if(cr.getName().toLowerCase().contains(filter.toLowerCase()) || cr.getSymbol().toLowerCase().contains(filter.toLowerCase())){
+                    listFiltered.add(cr);
+                }
+            }
         }
         notifyDataSetChanged();
     }
 
-    public Observable<Coin> getPublishSubject() {
+    public Observable<CoinCapResponse> getPublishSubject() {
         return publishSubject.asObservable();
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return listFiltered.size();
     }
 }

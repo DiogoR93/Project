@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.marketlist;
 
 import java.util.List;
 

@@ -1,10 +1,12 @@
 package drapps.leagueoflegendshq.coinlist;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +14,12 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import drapps.leagueoflegendshq.ContractMarketList;
 import drapps.leagueoflegendshq.MainActivity;
 import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.adapters.CoinAdaper;
 import drapps.leagueoflegendshq.base.BaseCustomFragment;
+import drapps.leagueoflegendshq.models.CoinCapResponse;
 import drapps.leagueoflegendshq.models.Exchange;
-import drapps.leagueoflegendshq.models.Market;
-import drapps.leagueoflegendshq.models.realmobjects.FavoriteCoin;
-import io.realm.Realm;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -60,7 +58,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
         rvCoins.setAdapter(adaper);
         adaper.getPublishSubject().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Coin>() {
+                .subscribe(new Subscriber<CoinCapResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -72,14 +70,37 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
                     }
 
                     @Override
-                    public void onNext(Coin coin) {
-                        FavoriteCoin favoriteCoin = new FavoriteCoin(exchange.getName(),coin.getName(), coin.getSymbol());
+                    public void onNext(CoinCapResponse coin) {
+                        /*FavoriteCoin favoriteCoin = new FavoriteCoin(exchange.getName(),coin.getName(), coin.getSymbol());
                         Realm.getDefaultInstance().beginTransaction();
                         Realm.getDefaultInstance().insertOrUpdate(favoriteCoin);
                         Realm.getDefaultInstance().commitTransaction();
-                        startActivity(new Intent(getContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        startActivity(new Intent(getContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
                     }
                 });
+
+        ((MainActivity) getActivity()).getEtSearch().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adaper.applyFilter(((MainActivity) getActivity()).getEtSearch().getText().toString().trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        ((MainActivity) getActivity()).getSwipeRefreshLayout().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.requestCoinList();
+            }
+        });
 
     }
 
@@ -94,11 +115,13 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     }
 
     @Override
-    public void onCoinsLoaded(List<Coin> list) {
+    public void onCoinsLoaded(List<CoinCapResponse> list) {
         Log.i("TESTE", "TESTE");
         try {
             adaper.swapContent(list);
             adaper.notifyDataSetChanged();
+            adaper.applyFilter(((MainActivity) getActivity()).getEtSearch().getText().toString().trim());
+            ((MainActivity) getActivity()).getSwipeRefreshLayout().setRefreshing(false);
         }catch (Exception e){
             e.printStackTrace();
         }

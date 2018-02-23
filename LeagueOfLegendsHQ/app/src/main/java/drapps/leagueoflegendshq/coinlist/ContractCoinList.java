@@ -4,6 +4,7 @@ import java.util.List;
 
 import drapps.leagueoflegendshq.contracts.IView;
 import drapps.leagueoflegendshq.contracts.Ipresenter;
+import drapps.leagueoflegendshq.models.CoinCapResponse;
 import drapps.leagueoflegendshq.models.Market;
 
 /**
@@ -12,7 +13,7 @@ import drapps.leagueoflegendshq.models.Market;
 
 public interface ContractCoinList {
     interface View extends IView{
-        void onCoinsLoaded(List<Coin> list);
+        void onCoinsLoaded(List<CoinCapResponse> list);
     }
 
     interface Presenter extends Ipresenter{

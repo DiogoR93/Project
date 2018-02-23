@@ -1,4 +1,4 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.marketlist;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.base.BaseCustomFragment;
 import drapps.leagueoflegendshq.models.Exchange;
 import drapps.leagueoflegendshq.models.Market;
@@ -16,7 +17,7 @@ import drapps.leagueoflegendshq.models.Market;
  * Created by Diogo on 03/02/2018.
  */
 
-public class MarketListFragment extends BaseCustomFragment implements ContractMarketList.View{
+public class MarketListFragment extends BaseCustomFragment implements ContractMarketList.View {
 
     MarketListPresenter presenter;
     Exchange exchange;

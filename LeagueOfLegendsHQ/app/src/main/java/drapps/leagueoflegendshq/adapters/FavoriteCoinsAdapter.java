@@ -1,8 +1,7 @@
-package drapps.leagueoflegendshq;
+package drapps.leagueoflegendshq.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import drapps.leagueoflegendshq.coinlist.Coin;
-import drapps.leagueoflegendshq.models.PriceAverageResponse;
-import drapps.leagueoflegendshq.models.PriceResponse;
+import drapps.leagueoflegendshq.R;
 import drapps.leagueoflegendshq.models.Service;
 import drapps.leagueoflegendshq.models.realmobjects.FavoriteCoin;
 import io.realm.Realm;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Diogo on 11/02/2018.
@@ -47,10 +41,10 @@ public class FavoriteCoinsAdapter extends RecyclerView.Adapter<FavoriteCoinsAdap
     @Override
     public void onBindViewHolder(FavCoinViewHolder holder, int position) {
         holder.txtName.setText(list.get(position).getCoinName());
-        requestPrice(list.get(position), holder);
+        //requestPrice(listFiltered.get(position), holder);
     }
 
-    private void requestPrice(FavoriteCoin favoriteCoin, final FavCoinViewHolder holder) {
+    /*private void requestPrice(FavoriteCoin favoriteCoin, final FavCoinViewHolder holder) {
         rx.Observable<PriceAverageResponse> observable = service.getPrice(favoriteCoin.getCoinSymbol().toUpperCase());
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -71,7 +65,7 @@ public class FavoriteCoinsAdapter extends RecyclerView.Adapter<FavoriteCoinsAdap
                         holder.txtPrice.setText(response.getChangePercentage());
                     }
                 });
-    }
+    }*/
 
     @Override
     public int getItemCount() {
