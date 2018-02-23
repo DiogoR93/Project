@@ -39,6 +39,8 @@ public interface Service {
     @GET("/assets")
     rx.Observable<CoinsResponse> getCoins();
 
+    @GET("https://newsapi.org/v2/everything?q=cryptocurrency&?sortBy=publishedAt&apiKey=0be764398a584ebab12a153b1e810052")
+    rx.Observable<AllNewsResponse> getAllNews();
 
 
 

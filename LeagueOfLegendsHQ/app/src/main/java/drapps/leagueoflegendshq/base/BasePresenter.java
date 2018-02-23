@@ -36,4 +36,8 @@ public abstract class BasePresenter implements Ipresenter{
 
     public void onLoadedCoins(List<CoinCapResponse> list){
     }
+
+    public Service getServiceAPI() {
+        return serviceAPI;
+    }
 }
