@@ -23,6 +23,8 @@
 
         <activity android:name=".marketlist.MarketListActivity" />
         <activity android:name=".exchangeslist.AddCoinActivity"/>
+        <activity android:name=".news.NewsDetailActivity"/>
+        <activity android:name=".coinlist.CoinDetailActivity" />
 
 
     </application>

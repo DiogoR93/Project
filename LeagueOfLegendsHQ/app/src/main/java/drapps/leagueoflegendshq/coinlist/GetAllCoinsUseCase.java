@@ -38,12 +38,14 @@ public class GetAllCoinsUseCase  extends BaseGeneralUseCase{
 
                     @Override
                     public void onError(Throwable e) {
+                        ((CoinListPresenter) presenter).stopLoading();
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(List<CoinCapResponse> response) {
                         presenter.onLoadedCoins(response);
+                        ((CoinListPresenter) presenter).stopLoading();
                         Log.i("COIN", response.get(0).getChangePercentage()+"");
                     }
                 });

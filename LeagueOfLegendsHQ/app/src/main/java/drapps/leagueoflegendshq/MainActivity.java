@@ -5,10 +5,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.bumptech.glide.Glide;
 
 import drapps.leagueoflegendshq.base.BaseCustomActivity;
 import drapps.leagueoflegendshq.coinlist.CoinListFragment;
@@ -21,6 +27,8 @@ public class MainActivity extends BaseCustomActivity {
     ViewPager viewPager;
     EditText etSearch;
     SwipeRefreshLayout swipeRefreshLayout;
+    FrameLayout loadingView;
+    TextView tvPageTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +36,16 @@ public class MainActivity extends BaseCustomActivity {
         setContentView(R.layout.activity_main);
         bindViews();
 
-        tabsAdapter.addFragment(new CoinListFragment(), "PlayerStats");
-        tabsAdapter.addFragment(new NewsListFragment(), "ChampionList");
+        tabsAdapter.addFragment(new CoinListFragment(), "Coins");
+        tabsAdapter.addFragment(new NewsListFragment(), "News");
+        tabsAdapter.addFragment(new SettingsFragment(), "Settings");
         viewPager.setAdapter(tabsAdapter);
+        viewPager.setOffscreenPageLimit(tabsAdapter.getCount());
 
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Coins", R.drawable.ic_accessible_white_24dp, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("News", R.drawable.ic_accessible_white_24dp, R.color.white);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Current Game", R.drawable.ic_accessible_white_24dp, R.color.white);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Coins", R.drawable.ic_timeline, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("News", R.drawable.ic_action_news, R.color.white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Settings", R.drawable.ic_settings, R.color.white);
 
 // Add items
         bottomNavigation.addItem(item1);
@@ -53,12 +63,37 @@ public class MainActivity extends BaseCustomActivity {
                 return true;
             }
         });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 0){
+                    etSearch.setVisibility(View.VISIBLE);
+                }else if (position == 1){
+                    etSearch.setVisibility(View.GONE);
+                    tvPageTitle.setText("News");
+                }else if(position == 2){
+                    tvPageTitle.setText("Settings");
+                    etSearch.setVisibility(View.GONE);
+                }else{
+                    tvPageTitle.setText(getString(R.string.placeholder));
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -67,6 +102,9 @@ public class MainActivity extends BaseCustomActivity {
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         etSearch = (EditText) findViewById(R.id.et_search_coin);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        loadingView = (FrameLayout) findViewById(R.id.loading_view);
+        tvPageTitle = findViewById(R.id.txt_page_title);
+
 
 
     }
@@ -77,5 +115,25 @@ public class MainActivity extends BaseCustomActivity {
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return swipeRefreshLayout;
+    }
+
+    @Override
+    public void startLoading() {
+        super.startLoading();
+        RelativeLayout view = (RelativeLayout) getLayoutInflater().inflate(R.layout.base_custom_activity, null);
+        loadingView.removeAllViews();
+        Glide.with(view).load(R.drawable.loading).into((ImageView) view.findViewById(R.id.iv_loading));
+        loadingView.addView(view);
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        super.stopLoading();
+        loadingView.setVisibility(View.GONE);
+    }
+
+    public int getCurrentPageSelected(){
+        return viewPager.getCurrentItem();
     }
 }

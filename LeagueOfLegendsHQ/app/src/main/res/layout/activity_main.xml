@@ -4,26 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="drapps.leagueoflegendshq.MainActivity">
+    tools:context="drapps.leagueoflegendshq.MainActivity"
+    android:animateLayoutChanges="true">
 
     <RelativeLayout android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/color3">
-        <ImageView android:id="@+id/arrow_exit"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_keyboard_arrow_left_blue_400_24dp"/>
+        <TextView android:id="@+id/txt_page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:layout_centerInParent="true"/>
         <EditText android:id="@+id/et_search_coin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/arrow_exit"
             android:hint="@string/search_coin"
             android:padding="5dp"
             android:textColor="#818181"
             android:background="@drawable/row_background"
             android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
     <android.support.v4.widget.SwipeRefreshLayout
@@ -38,7 +40,17 @@
     android:id="@+id/view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
+
+
     </android.support.v4.widget.SwipeRefreshLayout>
+    <FrameLayout android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/bottom_navigation"
+        android:visibility="gone">
+
+    </FrameLayout>
 
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation

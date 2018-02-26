@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import drapps.leagueoflegendshq.models.Service;
+import drapps.leagueoflegendshq.models.realmobjects.Settings;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -33,6 +34,12 @@ public class MainApplication extends Application {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(config);
+
+        if(Realm.getDefaultInstance().where(Settings.class).findAll().isEmpty()){
+            Realm.getDefaultInstance().beginTransaction();
+            Realm.getDefaultInstance().insertOrUpdate(new Settings(0)); //usd
+            Realm.getDefaultInstance().commitTransaction();
+        }
 
         service = Service.Factory.create();
 

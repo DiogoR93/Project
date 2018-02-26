@@ -1,5 +1,6 @@
 package drapps.leagueoflegendshq.coinlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -47,12 +48,19 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     @Override
     public void onResume() {
         super.onResume();
-        presenter.requestCoinList();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(((MainActivity) getActivity()).getCurrentPageSelected() == 0){
+            presenter.requestCoinList();
+        }
     }
 
     @Override
     public void bindViews(View view) {
-        rvCoins = (RecyclerView) view.findViewById(R.id.rv_widget);
+        rvCoins = view.findViewById(R.id.rv_widget);
         adaper = new CoinAdaper(getContext());
         rvCoins.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCoins.setAdapter(adaper);
@@ -71,6 +79,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
 
                     @Override
                     public void onNext(CoinCapResponse coin) {
+                        startActivity(new Intent(getContext(), CoinDetailActivity.class));
                         /*FavoriteCoin favoriteCoin = new FavoriteCoin(exchange.getName(),coin.getName(), coin.getSymbol());
                         Realm.getDefaultInstance().beginTransaction();
                         Realm.getDefaultInstance().insertOrUpdate(favoriteCoin);
@@ -78,7 +87,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
                         startActivity(new Intent(getContext(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
                     }
                 });
-
+        if(getActivity() != null)
         ((MainActivity) getActivity()).getEtSearch().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -106,7 +115,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
 
     @Override
     public void setupPresenter() {
-        presenter = new CoinListPresenter(getContext());
+        presenter = new CoinListPresenter(getContext(), this);
         presenter.attach(this);
     }
 
@@ -116,7 +125,6 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
 
     @Override
     public void onCoinsLoaded(List<CoinCapResponse> list) {
-        Log.i("TESTE", "TESTE");
         try {
             adaper.swapContent(list);
             adaper.notifyDataSetChanged();

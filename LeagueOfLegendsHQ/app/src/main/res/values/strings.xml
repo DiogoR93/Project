@@ -2,4 +2,11 @@
     <string name="app_name">LeagueOfLegendsHQ</string>
     <string name="placeholder">Placeholder</string>
     <string name="search_coin">Search Coin...</string>
+    <string name="read_more">Read more...</string>
+    <string name="currency">Currency</string>
+    <string name="usd">usd</string>
+    <string name="eur">eur</string>
+    <string name="usd_symbol">$</string>
+    <string name="eur_symbol">€</string>
+
 </resources>
