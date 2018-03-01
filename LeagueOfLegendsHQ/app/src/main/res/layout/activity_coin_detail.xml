@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true">
+
+    <RelativeLayout android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color3">
+
+        <TextView android:id="@+id/txt_page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:layout_centerInParent="true"
+            />
+        <EditText android:id="@+id/et_search_coin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_coin"
+            android:padding="5dp"
+            android:textColor="#818181"
+            android:visibility="gone"
+            android:background="@drawable/row_background"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:id="@+id/navigation_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+            <ImageView android:id="@+id/arrow_back"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_keyboard_arrow_left_blue_400_24dp"
+                android:layout_marginRight="10dp"/>
+            <TextView android:id="@+id/txt_graph_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text=""/>
+
+            <ImageView android:id="@+id/arrow_right"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_keyboard_arrow_right_blue_400_24dp"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+<android.support.v7.widget.CardView android:id="@+id/cv_price_graph"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/navigation_header_container"
+    android:padding="5dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp"
+    android:layout_margin="5dp"
+    android:visibility="gone">
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart_price"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+    </com.github.mikephil.charting.charts.LineChart>
+</android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView android:id="@+id/cv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cv_price_graph"
+        android:padding="5dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+                <ImageView android:id="@+id/iv_coin"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    />
+                <TextView android:id="@+id/txt_coin_symbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textSize="18sp"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView android:id="@+id/txt_coin_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="@color/progress_green"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/volume"
+                    android:textSize="18sp"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"/>
+
+                <TextView android:id="@+id/txt_volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="@color/graph_volume_color"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/market_cap"
+                android:textSize="18sp"
+                android:padding="5dp"
+                android:layout_centerVertical="true"/>
+
+                <TextView android:id="@+id/txt_market_cap_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22sp"
+                    android:textColor="@color/graph_marketcap_color"
+                    android:padding="5dp"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/pb_supply"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:rcBackgroundPadding="2dp"
+        app:rcRadius="5dp"
+        app:rcProgressColor="@color/graph_marketcap_color"
+        app:rcBackgroundColor="@color/background_light_grey"
+
+        />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView android:id="@+id/txt_supply_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grid_light_grey"
+
+                    android:text="@string/placeholder"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grid_light_grey"
+
+                    android:text=" / "/>
+                <TextView android:id="@+id/txt_supply_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/grid_light_grey"
+                    android:text="@string/placeholder"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</RelativeLayout>

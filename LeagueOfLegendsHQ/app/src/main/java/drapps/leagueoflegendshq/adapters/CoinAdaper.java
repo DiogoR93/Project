@@ -11,6 +11,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.TransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,7 +37,7 @@ public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
     List<CoinCapResponse> listFiltered = new ArrayList<>();
     List<CoinCapResponse> list = new ArrayList<>();
     PublishSubject<CoinCapResponse> publishSubject = PublishSubject.create();
-    int lastPosition = -1;
+    int lastPosition = 0;
 
     public CoinAdaper(Context context) {
         this.context = context;
@@ -56,7 +61,7 @@ public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
             holder.txtValue.setText(CurrencyUtils.toSelectedCurrency(context,listFiltered.get(position).getPrice()));
 
             try {
-                Picasso.with(context).load(context.getResources().getIdentifier(listFiltered.get(position).getSymbol().toLowerCase(), "drawable", context.getPackageName())).fit().into(holder.ivIcon);
+                Glide.with(context).load(context.getResources().getIdentifier(listFiltered.get(position).getSymbol().toLowerCase(), "drawable", context.getPackageName())).apply(RequestOptions.fitCenterTransform()).into(holder.ivIcon);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -79,10 +84,10 @@ public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
 
         public CoinVH(View itemView) {
             super(itemView);
-            ivIcon = (ImageView) itemView.findViewById(R.id.iv_coin);
-            txtName = (TextView) itemView.findViewById(R.id.txt_coin_name);
-            txtChangeCap = (TextView) itemView.findViewById(R.id.txt_coin_change);
-            txtValue = (TextView) itemView.findViewById(R.id.txt_coin_price);
+            ivIcon = itemView.findViewById(R.id.iv_coin);
+            txtName = itemView.findViewById(R.id.txt_coin_name);
+            txtChangeCap = itemView.findViewById(R.id.txt_coin_change);
+            txtValue = itemView.findViewById(R.id.txt_coin_price);
         }
     }
 
@@ -95,7 +100,7 @@ public class CoinAdaper extends RecyclerView.Adapter<CoinAdaper.CoinVH>{
     }
 
     public void applyFilter(String filter){
-        lastPosition = -1; //to animate when applying filters
+        lastPosition = 0; //to animate when applying filters
         this.listFiltered.clear();
         if(filter.equals("")){
             listFiltered.addAll(list);

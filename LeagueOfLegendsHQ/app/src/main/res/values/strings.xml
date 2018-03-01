@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LeagueOfLegendsHQ</string>
+    <string name="app_name">Crypto HQ</string>
     <string name="placeholder">Placeholder</string>
     <string name="search_coin">Search Coin...</string>
     <string name="read_more">Read more...</string>
@@ -8,5 +8,9 @@
     <string name="eur">eur</string>
     <string name="usd_symbol">$</string>
     <string name="eur_symbol">€</string>
+    <string name="supply">Supply</string>
+    <string name="market_cap">Market Cap</string>
+    <string name="price">Price</string>
+    <string name="volume">volume</string>
 
 </resources>

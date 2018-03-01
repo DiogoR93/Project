@@ -79,7 +79,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
 
                     @Override
                     public void onNext(CoinCapResponse coin) {
-                        startActivity(new Intent(getContext(), CoinDetailActivity.class));
+                        startActivity(new Intent(getContext(), CoinDetailActivity.class).putExtra("coin", coin.getSymbol().toUpperCase()));
                         /*FavoriteCoin favoriteCoin = new FavoriteCoin(exchange.getName(),coin.getName(), coin.getSymbol());
                         Realm.getDefaultInstance().beginTransaction();
                         Realm.getDefaultInstance().insertOrUpdate(favoriteCoin);

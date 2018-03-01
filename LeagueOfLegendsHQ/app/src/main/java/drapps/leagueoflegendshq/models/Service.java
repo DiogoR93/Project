@@ -42,6 +42,12 @@ public interface Service {
     @GET("https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=publishedAt&pageSize=100&apiKey=0be764398a584ebab12a153b1e810052")
     rx.Observable<AllNewsResponse> getAllNews();
 
+    @GET("http://coincap.io/history/1day/{coinName}")
+    rx.Observable<GraphDataResponse> getGraphData(@Path("coinName") String coinName);
+
+    @GET("http://coincap.io/page/{coin}")
+    rx.Observable<CoinCapSingleCoinResponse> getCoinInfo(@Path("coin") String coin);
+
 
 
     class Factory {

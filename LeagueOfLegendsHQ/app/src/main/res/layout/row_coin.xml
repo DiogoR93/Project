@@ -28,6 +28,7 @@
         android:layout_toRightOf="@+id/iv_coin"
         android:layout_toEndOf="@+id/iv_coin"
         android:layout_toLeftOf="@+id/ll_cap_change"
+        android:layout_toStartOf="@id/ll_cap_change"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp">
 
@@ -35,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/placeholder"
+        android:lines="1"
         android:textSize="20sp"/>
         <TextView android:id="@+id/txt_coin_price"
             android:layout_width="wrap_content"

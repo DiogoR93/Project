@@ -10,7 +10,9 @@ import drapps.leagueoflegendshq.coinlist.Coin;
 import drapps.leagueoflegendshq.contracts.IView;
 import drapps.leagueoflegendshq.contracts.Ipresenter;
 import drapps.leagueoflegendshq.models.CoinCapResponse;
+import drapps.leagueoflegendshq.models.CoinCapSingleCoinResponse;
 import drapps.leagueoflegendshq.models.Exchange;
+import drapps.leagueoflegendshq.models.GraphDataResponse;
 import drapps.leagueoflegendshq.models.Market;
 import drapps.leagueoflegendshq.models.Service;
 
@@ -37,7 +39,14 @@ public abstract class BasePresenter implements Ipresenter{
     public void onLoadedCoins(List<CoinCapResponse> list){
     }
 
+    public void onLoadedCoinGraphData(GraphDataResponse response){
+
+    }
+
     public Service getServiceAPI() {
         return serviceAPI;
+    }
+
+    public void onLoadedCoinInfo(CoinCapSingleCoinResponse response) {
     }
 }

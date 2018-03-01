@@ -5,9 +5,13 @@
     <color name="colorAccent">#919191</color>
     <color name="white">#ffffff</color>
     <color name="background_light_grey">#F2F4F6</color>
+    <color name="grid_light_grey">#919191</color>
     <color name="positive_green">#4CAF50</color>
     <color name="negative_red">#D32F2F</color>
     <color name="second_bg_color">#80CBC4</color>
     <color name="first_bg_color">#273E47</color>
     <color name="color3">#607D8B</color>
+    <color name="graph_volume_color">#039be5</color>
+    <color name="graph_marketcap_color">#ff7043</color>
+    <color name="progress_green">#66bb6a</color>
 </resources>
