@@ -27,6 +27,9 @@
         <activity android:name=".coinlist.CoinDetailActivity" />
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="9c6f7d41d73c79053f1f90862ec4b79569f1f13c" />
     </application>
 
 </manifest>

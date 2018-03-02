@@ -156,7 +156,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         tvMarketCapPercentage.setText(String.format("%.1f",(response.getMarketCap()/response.getTotalCap())*100) + "%");
         String format =  "%.4f";
         if(Realm.getDefaultInstance().where(Settings.class).findFirst().getCurrency() == 0){
-            if(response.getPriceUSD() > 0){
+            if(response.getPriceUSD() > 1){
                 format = "%.2f";
             }else if(response.getPriceUSD() > 10){
                 format = "%.1f";
