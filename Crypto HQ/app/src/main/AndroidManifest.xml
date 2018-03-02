@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="drapps.leagueoflegendshq">
+    package="drapps.cryptoheadquarters">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MainApplication"
+        android:name="drapps.cryptoheadquarters.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name="drapps.cryptoheadquarters.MainActivity"
         android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".marketlist.MarketListActivity" />
-        <activity android:name=".exchangeslist.AddCoinActivity"/>
-        <activity android:name=".news.NewsDetailActivity"/>
-        <activity android:name=".coinlist.CoinDetailActivity" />
+        <activity android:name="drapps.cryptoheadquarters.marketlist.MarketListActivity" />
+        <activity android:name="drapps.cryptoheadquarters.exchangeslist.AddCoinActivity"/>
+        <activity android:name="drapps.cryptoheadquarters.news.NewsDetailActivity"/>
+        <activity android:name="drapps.cryptoheadquarters.coinlist.CoinDetailActivity" />
 
 
         <meta-data

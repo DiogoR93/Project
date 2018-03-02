@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="drapps.leagueoflegendshq.MainActivity"
+    tools:context="drapps.cryptoheadquarters.MainActivity"
     android:animateLayoutChanges="true">
 
     <RelativeLayout android:id="@+id/toolbar"

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_accessible_white_24dp.png",
+        "source": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\src\\main\\res\\drawable-hdpi\\ic_accessible_white_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_keyboard_arrow_left_blue_400_24dp.png",
+        "source": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\src\\main\\res\\drawable-hdpi\\ic_keyboard_arrow_left_blue_400_24dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_keyboard_arrow_right_blue_400_24dp.png",
+        "source": "C:\\Users\\Diogo\\Documents\\AndroidProjects2018\\LeagueOfLegendsHQ\\app\\src\\main\\res\\drawable-hdpi\\ic_keyboard_arrow_right_blue_400_24dp.png"
+    }
+]

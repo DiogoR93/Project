@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="drapps.leagueoflegendshq.LoginActivity">
+    tools:context="drapps.cryptoheadquarters.LoginActivity">
     <TextView android:id="@+id/title"
         android:layout_width="wrap_content"
         android:text="Choose a summoner name to search"
