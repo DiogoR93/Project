@@ -42,9 +42,9 @@ public class MainActivity extends BaseCustomActivity {
         viewPager.setOffscreenPageLimit(tabsAdapter.getCount());
 
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Coins", R.drawable.ic_timeline, R.color.white);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("News", R.drawable.ic_action_news, R.color.white);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Settings", R.drawable.ic_settings, R.color.white);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.coins, R.drawable.ic_timeline, R.color.white);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.news, R.drawable.ic_action_news, R.color.white);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.setings, R.drawable.ic_settings, R.color.white);
 
 // Add items
         bottomNavigation.addItem(item1);
@@ -74,9 +74,9 @@ public class MainActivity extends BaseCustomActivity {
                     etSearch.setVisibility(View.VISIBLE);
                 }else if (position == 1){
                     etSearch.setVisibility(View.GONE);
-                    tvPageTitle.setText("News");
+                    tvPageTitle.setText(getString(R.string.news));
                 }else if(position == 2){
-                    tvPageTitle.setText("Settings");
+                    tvPageTitle.setText(getString(R.string.setings));
                     etSearch.setVisibility(View.GONE);
                 }else{
                     tvPageTitle.setText(getString(R.string.placeholder));

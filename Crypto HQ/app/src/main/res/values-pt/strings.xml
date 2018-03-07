@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><string name="app_name">Crypto HQ</string>
+    <string name="search_coin">Procurar...</string>
+    <string name="read_more">Ler mais...</string>
+    <string name="currency">Moeda</string>
+    <string name="usd">usd</string>
+    <string name="eur">eur</string>
+    <string name="usd_symbol">$</string>
+    <string name="eur_symbol">€</string>
+    <string name="supply">Quantidade a circular</string>
+    <string name="market_cap">Valor de mercado</string>
+    <string name="price">Preço</string>
+    <string name="volume">volume</string>
+    <string name="donate">Doações</string>
+    <string name="donation_url">https://www.paypal.me/cryptohq</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="coins">Moedas</string>
+    <string name="news">Notícias</string>
+    <string name="setings">Preferências</string>
+</resources>

@@ -10,6 +10,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -39,7 +40,7 @@ public interface Service {
     rx.Observable<CoinsResponse> getCoins();
 
     @GET("https://newsapi.org/v2/everything?q=cryptocurrency&sortBy=publishedAt&pageSize=100&apiKey=0be764398a584ebab12a153b1e810052")
-    rx.Observable<AllNewsResponse> getAllNews();
+    rx.Observable<AllNewsResponse> getAllNews(@Query("language") String language);
 
     @GET("http://coincap.io/history/1day/{coinName}")
     rx.Observable<GraphDataResponse> getGraphData(@Path("coinName") String coinName);

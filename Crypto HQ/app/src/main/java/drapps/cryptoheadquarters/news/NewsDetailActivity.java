@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.tappx.sdk.android.TappxBanner;
 
 import drapps.cryptoheadquarters.R;
 import drapps.cryptoheadquarters.base.BaseCustomActivity;
@@ -25,6 +26,7 @@ public class NewsDetailActivity extends BaseCustomActivity{
     TextView tvUrl;
     ImageView ivHeader;
     ImageView ivBackArrow;
+    TappxBanner banner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +62,9 @@ public class NewsDetailActivity extends BaseCustomActivity{
                 finish();
             }
         });
+
+        banner.setAdSize(TappxBanner.AdSize.SMART_BANNER);
+
     }
 
     @Override
@@ -69,6 +74,8 @@ public class NewsDetailActivity extends BaseCustomActivity{
         tvTitle = findViewById(R.id.txt_news_title);
         tvUrl = findViewById(R.id.txt_news_url);
         ivBackArrow = findViewById(R.id.arrow_back);
+        banner = findViewById(R.id.tappx_banner);
+
 
     }
 }

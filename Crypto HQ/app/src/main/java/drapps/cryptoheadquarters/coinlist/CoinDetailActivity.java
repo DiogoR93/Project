@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -58,6 +61,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
     int requestGraphCode = 0;
     GraphDataResponse response;
     String coinName;
+    FrameLayout loadingView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,6 +131,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         tvPrice = findViewById(R.id.txt_coin_price);
         tvGraphContent = findViewById(R.id.txt_graph_content);
         tvVolume = findViewById(R.id.txt_volume);
+        loadingView = findViewById(R.id.loading_view);
     }
 
     @Override
@@ -205,14 +210,17 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
             set1.setColor(ContextCompat.getColor(this, R.color.positive_green));
             set1.setCircleColor(ContextCompat.getColor(this, R.color.positive_green));
             set1.setFillColor(ContextCompat.getColor(this, R.color.positive_green));
+            set1.setLabel(getString(R.string.price));
         }else if(requestGraphCode == 1){
             set1.setColor(ContextCompat.getColor(this, R.color.graph_marketcap_color));
             set1.setCircleColor(ContextCompat.getColor(this, R.color.graph_marketcap_color));
             set1.setFillColor(ContextCompat.getColor(this, R.color.graph_marketcap_color));
+            set1.setLabel(getString(R.string.market_cap));
         }else{
             set1.setColor(ContextCompat.getColor(this, R.color.graph_volume_color));
             set1.setCircleColor(ContextCompat.getColor(this, R.color.graph_volume_color));
             set1.setFillColor(ContextCompat.getColor(this, R.color.graph_volume_color));
+            set1.setLabel(getString(R.string.volume));
         }
         set1.setLineWidth(1f);
         set1.setCircleSize(3f);
@@ -226,8 +234,11 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         dataSets.add(set1);
         //lineChartPrice.getXAxis().setGranularity(5f);
         lineChartPrice.getAxisRight().setEnabled(false);
-        lineChartPrice.getXAxis().setGridColor(ContextCompat.getColor(this, R.color.grid_light_grey));
-        lineChartPrice.getAxisLeft().setGridColor(ContextCompat.getColor(this, R.color.grid_light_grey));
+        //lineChartPrice.getXAxis().setGridColor(ContextCompat.getColor(this, R.color.grid_light_grey));
+        //lineChartPrice.getAxisLeft().setGridColor(ContextCompat.getColor(this, R.color.grid_light_grey));
+        lineChartPrice.getXAxis().setDrawGridLines(false);
+        lineChartPrice.getAxisLeft().setDrawGridLines(false);
+        lineChartPrice.getDescription().setEnabled(false);
         lineChartPrice.setPinchZoom(true);
         lineChartPrice.setDoubleTapToZoomEnabled(true);
         lineChartPrice.getXAxis().setValueFormatter(new IAxisValueFormatter() {
@@ -250,6 +261,23 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         lineChartPrice.setData(lineData);
         lineChartPrice.invalidate();
         cvPriceChart.setVisibility(View.VISIBLE);
+        ivLeft.setVisibility(View.VISIBLE);
+        ivRight.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void startLoading() {
+        super.startLoading();
+        RelativeLayout view = (RelativeLayout) getLayoutInflater().inflate(R.layout.base_custom_activity, null);
+        loadingView.removeAllViews();
+        Glide.with(view).load(R.drawable.loading).into((ImageView) view.findViewById(R.id.iv_loading));
+        loadingView.addView(view);
+        loadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void stopLoading() {
+        super.stopLoading();
+        loadingView.setVisibility(View.GONE);
     }
 }

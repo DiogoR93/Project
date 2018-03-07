@@ -3,6 +3,9 @@ package drapps.cryptoheadquarters.coinlist;
 import android.content.Context;
 import android.util.Log;
 
+import com.tappx.sdk.android.BaseAdActivity;
+
+import drapps.cryptoheadquarters.base.BaseCustomActivity;
 import drapps.cryptoheadquarters.base.BasePresenter;
 import drapps.cryptoheadquarters.models.CoinCapSingleCoinResponse;
 import drapps.cryptoheadquarters.models.GraphDataResponse;
@@ -22,6 +25,7 @@ public class GetCoinDataUseCase extends BaseGeneralUseCase{
     }
 
     public void getCoinDataForGraph(String coinName){
+        ((BaseCustomActivity) context).startLoading();
         rx.Observable<GraphDataResponse> observable = serviceApi.getGraphData(coinName);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -33,6 +37,7 @@ public class GetCoinDataUseCase extends BaseGeneralUseCase{
 
                     @Override
                     public void onError(Throwable e) {
+                        ((BaseCustomActivity) context).stopLoading();
                         e.printStackTrace();
                     }
 
@@ -45,6 +50,7 @@ public class GetCoinDataUseCase extends BaseGeneralUseCase{
                         }
 
                         presenter.onLoadedCoinGraphData(response);
+                        ((BaseCustomActivity) context).stopLoading();
                     }
                 });
     }

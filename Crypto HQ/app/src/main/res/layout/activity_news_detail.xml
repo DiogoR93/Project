@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:singleLine="true"
             android:text="@string/placeholder"
@@ -59,10 +59,19 @@
             android:textSize="18sp"/>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-<TextView
+    <com.tappx.sdk.android.TappxBanner
+        android:layout_above="@id/powered_by"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tappx_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:txAppKey="Pub-36915-Android-0971"
+        />
+<TextView android:id="@+id/powered_by"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Powered by : https://newsapi.org/pricing"
+    android:text="Powered by : https://newsapi.org/"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:layout_marginBottom="5dp"/>

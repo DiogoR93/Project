@@ -3,6 +3,8 @@ package drapps.cryptoheadquarters.news;
 import android.content.Context;
 import android.util.Log;
 
+import java.util.Locale;
+
 import drapps.cryptoheadquarters.base.BasePresenter;
 import drapps.cryptoheadquarters.contracts.IView;
 import drapps.cryptoheadquarters.models.AllNewsResponse;
@@ -37,7 +39,15 @@ public class NewsListPresenter extends BasePresenter implements ContractNewsList
 
     @Override
     public void loadNews() {
-        rx.Observable<AllNewsResponse> observable = serviceApi.getAllNews();
+        String localeLanguage = Locale.getDefault().getLanguage();
+        if(localeLanguage.equals("pt") || localeLanguage.equals("ar") || localeLanguage.equals("es") || localeLanguage.equals("it") || localeLanguage.equals("de")
+        || localeLanguage.equals("he") || localeLanguage.equals("nl") || localeLanguage.equals("no") || localeLanguage.equals("ru")||localeLanguage.equals("se")
+        || localeLanguage.equals("ud")||localeLanguage.equals("zh")){
+            localeLanguage = Locale.getDefault().getLanguage();
+        }else{
+            localeLanguage = "en";
+        }
+        rx.Observable<AllNewsResponse> observable = serviceApi.getAllNews(localeLanguage);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<AllNewsResponse>() {
