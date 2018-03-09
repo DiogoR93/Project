@@ -59,15 +59,16 @@
             android:textSize="18sp"/>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-    <com.tappx.sdk.android.TappxBanner
-        android:layout_above="@id/powered_by"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tappx_banner"
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:txAppKey="Pub-36915-Android-0971"
-        />
+        android:layout_above="@+id/powered_by"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-7700600441093459/3626685134">
+    </com.google.android.gms.ads.AdView>
 <TextView android:id="@+id/powered_by"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

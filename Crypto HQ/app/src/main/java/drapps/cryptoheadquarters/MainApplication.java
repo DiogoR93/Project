@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.MobileAds;
+
 import drapps.cryptoheadquarters.models.Service;
 import drapps.cryptoheadquarters.models.realmobjects.Settings;
 import io.fabric.sdk.android.Fabric;
@@ -35,6 +37,7 @@ public class MainApplication extends Application {
         if(!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
+
 
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().build();

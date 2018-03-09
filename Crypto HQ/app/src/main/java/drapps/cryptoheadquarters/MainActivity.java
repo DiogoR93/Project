@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.MobileAds;
 
 import drapps.cryptoheadquarters.base.BaseCustomActivity;
 import drapps.cryptoheadquarters.coinlist.CoinListFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseCustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bindViews();
+        MobileAds.initialize(this, "ca-app-pub-7700600441093459~6942634689");
 
         tabsAdapter.addFragment(new CoinListFragment(), "Coins");
         tabsAdapter.addFragment(new NewsListFragment(), "News");

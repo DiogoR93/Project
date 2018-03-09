@@ -21,6 +21,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
     GraphDataResponse response;
     String coinName;
     FrameLayout loadingView;
+    AdView adView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,6 +116,8 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         }
         tvCoinSymbol.setText(coinName.toUpperCase());
         tvTitle.setText(coinName.toUpperCase());
+        adView.loadAd(new AdRequest.Builder().setGender(AdRequest.GENDER_MALE).addKeyword("Crypto").addKeyword("Cryptocurrency").addKeyword("Finance").addKeyword("Stocks").addKeyword("market").addKeyword("exchange").build());
+
     }
 
     @Override
@@ -132,6 +137,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         tvGraphContent = findViewById(R.id.txt_graph_content);
         tvVolume = findViewById(R.id.txt_volume);
         loadingView = findViewById(R.id.loading_view);
+        adView = findViewById(R.id.adView);
     }
 
     @Override
