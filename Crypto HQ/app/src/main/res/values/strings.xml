@@ -17,5 +17,7 @@
     <string name="coins">Coins</string>
     <string name="news">News</string>
     <string name="setings">Settings</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>
