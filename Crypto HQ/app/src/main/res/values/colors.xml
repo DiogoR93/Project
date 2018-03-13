@@ -14,4 +14,6 @@
     <color name="graph_volume_color">#039be5</color>
     <color name="graph_marketcap_color">#ff7043</color>
     <color name="progress_green">#66bb6a</color>
+    <color name="icon_green">#227744</color>
+    <color name="transparent">#00000000</color>
 </resources>

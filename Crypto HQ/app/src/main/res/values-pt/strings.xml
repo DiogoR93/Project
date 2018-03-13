@@ -17,4 +17,7 @@
     <string name="coins">Moedas</string>
     <string name="news">Notícias</string>
     <string name="setings">Preferências</string>
+    <string name="widget_empty_text" >Aqui estarão as tuas cryptomoedas favoritas. Adiciona moedas á tua lista de favoritas e reinicia o widget.</string>
+    <string name="general_coins">Todas</string>
+    <string name="favorite_coins">Favoritas</string>
 </resources>

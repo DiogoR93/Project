@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light_grey">
+
+    <RadioGroup
+        android:id="@+id/tabs_types"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/tab_card_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_card_type_selector"
+            android:checked="true"
+            android:button="@null"
+            android:textColor="@color/white"
+            android:drawableLeft="@null"
+            android:drawableRight="@null"
+            android:drawableEnd="@null"
+            android:drawableStart="@null"
+            android:gravity="center"
+            android:textSize="@dimen/medium_size_txt"
+            android:textStyle="bold"
+            android:minLines="2"
+            android:padding="10dp"
+            android:text="@string/general_coins"
+            />
+
+        <TextView
+            android:id="@+id/tab_card_middle"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/background_light_grey"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <RadioButton
+            android:id="@+id/tab_card_favorits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_card_type_selector"
+            android:button="@null"
+            android:textColor="@color/background_light_grey"
+            android:textSize="@dimen/medium_size_txt"
+            android:drawableLeft="@null"
+            android:drawableRight="@null"
+            android:drawableEnd="@null"
+            android:drawableStart="@null"
+            android:gravity="center"
+            android:minLines="2"
+            android:padding="10dp"
+            android:text="@string/favorite_coins"
+            />
+    </RadioGroup>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_widget"
+        android:layout_below="@+id/tabs_types"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@drawable/gradient_shadow"
+        android:layout_below="@+id/tabs_types"/>
+
+</RelativeLayout>

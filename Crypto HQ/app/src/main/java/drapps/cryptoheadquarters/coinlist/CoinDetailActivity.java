@@ -1,5 +1,10 @@
 package drapps.cryptoheadquarters.coinlist;
 
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -15,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -30,10 +35,14 @@ import java.util.Date;
 import java.util.List;
 
 import drapps.cryptoheadquarters.R;
+import drapps.cryptoheadquarters.Utils;
 import drapps.cryptoheadquarters.base.BaseCustomActivity;
 import drapps.cryptoheadquarters.models.CoinCapSingleCoinResponse;
 import drapps.cryptoheadquarters.models.GraphDataResponse;
+import drapps.cryptoheadquarters.models.realmobjects.FavoriteCoin;
 import drapps.cryptoheadquarters.models.realmobjects.Settings;
+import drapps.cryptoheadquarters.widget.CoinListWidget;
+import drapps.cryptoheadquarters.widget.CoinWidgetService;
 import io.realm.Realm;
 
 /**
@@ -60,17 +69,19 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
     ImageView ivLeft;
     ImageView ivRight;
     ImageView ivCoin;
+    ImageView ivFavorite;
     int requestGraphCode = 0;
     GraphDataResponse response;
-    String coinName;
+    String coinSymbol;
     FrameLayout loadingView;
     AdView adView;
+    private boolean isFavorite = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coin_detail);
-        coinName = getIntent().getStringExtra("coin");
+        coinSymbol = getIntent().getStringExtra("coin");
         bindViews();
         setupPresenter();
         setupListeners();
@@ -101,23 +112,48 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
                 }
             }
         });
+
+        ivFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFavorite) {
+                    ivFavorite.setImageResource(R.drawable.ic_star_white_36dp);
+                    Realm.getDefaultInstance().beginTransaction();
+                    Realm.getDefaultInstance().insertOrUpdate(new FavoriteCoin(null, null, coinSymbol));
+                    Realm.getDefaultInstance().commitTransaction();
+                    isFavorite = true;
+                    Utils.updateMyWidgets(CoinDetailActivity.this, null);
+                } else {
+                    ivFavorite.setImageResource(R.drawable.ic_star_border_white_36dp);
+                    Realm.getDefaultInstance().beginTransaction();
+                    Realm.getDefaultInstance().where(FavoriteCoin.class).equalTo("coinSymbol", coinSymbol).findFirst().deleteFromRealm();
+                    Realm.getDefaultInstance().commitTransaction();
+                    isFavorite = false;
+                    Utils.updateMyWidgets(CoinDetailActivity.this, null);
+
+                }
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.loadCoinGraphData(coinName);
-        presenter.loadCointInfo(coinName);
+        presenter.loadCoinGraphData(coinSymbol);
+        presenter.loadCointInfo(coinSymbol);
 
         try {
-            Glide.with(this).load(getResources().getIdentifier(coinName.toLowerCase(), "drawable", getPackageName())).apply(RequestOptions.fitCenterTransform()).into(ivCoin);
+            Glide.with(this).load(getResources().getIdentifier(coinSymbol.toLowerCase(), "drawable", getPackageName())).apply(RequestOptions.fitCenterTransform()).into(ivCoin);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tvCoinSymbol.setText(coinName.toUpperCase());
-        tvTitle.setText(coinName.toUpperCase());
+        tvCoinSymbol.setText(coinSymbol.toUpperCase());
+        tvTitle.setText(coinSymbol.toUpperCase());
         adView.loadAd(new AdRequest.Builder().setGender(AdRequest.GENDER_MALE).addKeyword("Crypto").addKeyword("Cryptocurrency").addKeyword("Finance").addKeyword("Stocks").addKeyword("market").addKeyword("exchange").build());
-
+        if(Realm.getDefaultInstance().where(FavoriteCoin.class).equalTo("coinSymbol", coinSymbol).findFirst() != null){
+            ivFavorite.setImageResource(R.drawable.ic_star_white_36dp);
+            isFavorite = true;
+        }
     }
 
     @Override
@@ -138,6 +174,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         tvVolume = findViewById(R.id.txt_volume);
         loadingView = findViewById(R.id.loading_view);
         adView = findViewById(R.id.adView);
+        ivFavorite = findViewById(R.id.iv_favorite);
     }
 
     @Override

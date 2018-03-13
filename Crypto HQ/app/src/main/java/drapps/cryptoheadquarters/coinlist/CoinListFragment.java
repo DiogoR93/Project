@@ -1,6 +1,7 @@
 package drapps.cryptoheadquarters.coinlist;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,15 +12,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import drapps.cryptoheadquarters.MainActivity;
+import drapps.cryptoheadquarters.MainApplication;
 import drapps.cryptoheadquarters.R;
 import drapps.cryptoheadquarters.adapters.CoinAdaper;
 import drapps.cryptoheadquarters.base.BaseCustomFragment;
 import drapps.cryptoheadquarters.models.CoinCapResponse;
 import drapps.cryptoheadquarters.models.Exchange;
+import drapps.cryptoheadquarters.models.realmobjects.FavoriteCoin;
+import io.realm.Realm;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -34,11 +40,16 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     Exchange exchange;
     CoinAdaper adaper;
     RecyclerView rvCoins;
+    RadioButton rbGeneral;
+    RadioButton rbFavorits;
+    boolean isFavoritesSelected = false;
+    List<CoinCapResponse> listGeneral = new ArrayList<>();
+    List<CoinCapResponse> listFavorite = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.rv_layout, container, false);
+        View view = inflater.inflate(R.layout.rv_layout_coins, container, false);
         bindViews(view );
         setupPresenter();
         return view;
@@ -47,6 +58,27 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     @Override
     public void onResume() {
         super.onResume();
+        rbFavorits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbFavorits.setTypeface(Typeface.DEFAULT_BOLD);
+                rbGeneral.setTypeface(Typeface.DEFAULT);
+                ((MainActivity) getActivity()).getEtSearch().setText("");
+                isFavoritesSelected = true;
+                adaper.swapContent(listFavorite);
+            }
+        });
+
+        rbGeneral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbFavorits.setTypeface(Typeface.DEFAULT);
+                rbGeneral.setTypeface(Typeface.DEFAULT_BOLD);
+                ((MainActivity) getActivity()).getEtSearch().setText("");
+                adaper.swapContent(listGeneral);
+            }
+        });
+
     }
 
     @Override
@@ -60,6 +92,8 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     @Override
     public void bindViews(View view) {
         rvCoins = view.findViewById(R.id.rv_widget);
+        rbFavorits = view.findViewById(R.id.tab_card_favorits);
+        rbGeneral = view.findViewById(R.id.tab_card_general);
         adaper = new CoinAdaper(getContext());
         rvCoins.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCoins.setAdapter(adaper);
@@ -125,6 +159,19 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
     @Override
     public void onCoinsLoaded(List<CoinCapResponse> list) {
         try {
+            this.listFavorite.clear();
+            this.listGeneral.clear();
+            listGeneral.addAll(list);
+            for(CoinCapResponse cr : list){
+                if(Realm.getDefaultInstance().where(FavoriteCoin.class).equalTo("coinSymbol", cr.getSymbol()).findFirst() != null){
+                    listFavorite.add(cr);
+                }
+            }
+            if (isFavoritesSelected){
+                adaper.swapContent(listFavorite);
+            }else {
+                adaper.swapContent(listGeneral);
+            }
             adaper.swapContent(list);
             adaper.notifyDataSetChanged();
             adaper.applyFilter(((MainActivity) getActivity()).getEtSearch().getText().toString().trim());

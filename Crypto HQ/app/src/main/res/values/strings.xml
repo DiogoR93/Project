@@ -19,5 +19,8 @@
     <string name="setings">Settings</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_empty_text" >This, will list your favorite coins. Please, add some coins to your favorite list and restart the widget.</string>
+    <string name="general_coins">General</string>
+    <string name="favorite_coins">Favorite</string>
 
 </resources>

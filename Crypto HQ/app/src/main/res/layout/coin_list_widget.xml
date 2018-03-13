@@ -3,17 +3,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/row_background"
     android:padding="@dimen/widget_margin">
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/placeholder"/>
+    <Button android:id="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update"/>
     <ListView
         android:id="@+id/lv_appwidget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/btn_update"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="8dp"
         />
+
+    <TextView android:id="@+id/txt_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:textColor="@color/grid_light_grey"
+        android:textSize="16sp"
+        android:text="@string/widget_empty_text"/>
 
 </RelativeLayout>

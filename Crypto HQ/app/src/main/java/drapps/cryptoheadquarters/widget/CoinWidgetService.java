@@ -2,7 +2,6 @@ package drapps.cryptoheadquarters.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViewsService;
 
 import java.util.ArrayList;
@@ -11,6 +10,8 @@ import java.util.List;
 import drapps.cryptoheadquarters.MainApplication;
 import drapps.cryptoheadquarters.R;
 import drapps.cryptoheadquarters.models.CoinCapResponse;
+import drapps.cryptoheadquarters.models.realmobjects.FavoriteCoin;
+import io.realm.Realm;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -22,11 +23,12 @@ import rx.schedulers.Schedulers;
 public class CoinWidgetService extends RemoteViewsService{
 
     List<CoinCapResponse> list = new ArrayList<>();
+    Intent intente;
 
     @Override
-    public RemoteViewsFactory onGetViewFactory(final Intent intent) {
-        final CustomRemoteViewsFactory customRemoteViewsFactory = new CustomRemoteViewsFactory(list, getApplicationContext(),intent);
-        Log.i("Widget----", "HERE");
+    public RemoteViewsFactory onGetViewFactory( Intent intent) {
+        this.intente = intent;
+        CustomRemoteViewsFactory customRemoteViewsFactory = new CustomRemoteViewsFactory(list, getApplicationContext(),intent);
         rx.Observable<List<CoinCapResponse>> observable = ((MainApplication) getApplicationContext()).getService().getCoinsFromCoinCap();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -43,13 +45,13 @@ public class CoinWidgetService extends RemoteViewsService{
 
                     @Override
                     public void onNext(List<CoinCapResponse> response) {
-                        Log.i("COIN", response.get(0).getChangePercentage()+"");
-                        Log.i("Widget----", "HERE2");
-
-                        list.addAll(response.subList(1,8));
+                        for(CoinCapResponse cr : response){
+                            if(Realm.getDefaultInstance().where(FavoriteCoin.class).equalTo("coinSymbol", cr.getSymbol()).findFirst() != null){
+                                list.add(cr);
+                            }
+                        }
                         AppWidgetManager manager = AppWidgetManager.getInstance(getApplicationContext());
-                        manager.notifyAppWidgetViewDataChanged(intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,0), R.id.lv_appwidget);
-                        Log.i("Widget----", "HERE"+                        customRemoteViewsFactory.getCount());
+                        manager.notifyAppWidgetViewDataChanged(intente.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,0), R.id.lv_appwidget);
                     }
                 });
         return customRemoteViewsFactory;

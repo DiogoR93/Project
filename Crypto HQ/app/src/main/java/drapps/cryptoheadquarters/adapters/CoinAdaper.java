@@ -21,6 +21,8 @@ import java.util.List;
 import drapps.cryptoheadquarters.CurrencyUtils;
 import drapps.cryptoheadquarters.R;
 import drapps.cryptoheadquarters.models.CoinCapResponse;
+import drapps.cryptoheadquarters.models.realmobjects.FavoriteCoin;
+import io.realm.Realm;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
