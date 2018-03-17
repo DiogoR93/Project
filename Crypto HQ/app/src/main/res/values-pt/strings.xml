@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><string name="app_name">Crypto HQ</string>
+<resources>
+    <string name="app_name">Crypto HQ</string>
     <string name="search_coin">Procurar...</string>
     <string name="read_more">Ler mais...</string>
     <string name="currency">Moeda</string>
@@ -20,4 +21,12 @@
     <string name="widget_empty_text" >Aqui estarão as tuas cryptomoedas favoritas. Adiciona moedas á tua lista de favoritas e reinicia o widget.</string>
     <string name="general_coins">Todas</string>
     <string name="favorite_coins">Favoritas</string>
+    <string name="below">Abaixo</string>
+    <string name="above">Acima</string>
+    <string name="type_price">Escreva o valor…</string>
+    <string name="alerts">Alertas</string>
+    <string name="is_at">está a</string>
+    <string name="done">Criar</string>
+    <string name="add_widget">Add widget</string>
+    <string name="appwidget_text">EXAMPLE</string>
 </resources>

@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import drapps.cryptoheadquarters.CurrencyUtils;
 import drapps.cryptoheadquarters.MainActivity;
 import drapps.cryptoheadquarters.MainApplication;
 import drapps.cryptoheadquarters.R;
@@ -74,6 +75,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
             public void onClick(View v) {
                 rbFavorits.setTypeface(Typeface.DEFAULT);
                 rbGeneral.setTypeface(Typeface.DEFAULT_BOLD);
+                isFavoritesSelected = false;
                 ((MainActivity) getActivity()).getEtSearch().setText("");
                 adaper.swapContent(listGeneral);
             }
@@ -112,7 +114,7 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
 
                     @Override
                     public void onNext(CoinCapResponse coin) {
-                        startActivity(new Intent(getContext(), CoinDetailActivity.class).putExtra("coin", coin.getSymbol().toUpperCase()));
+                        startActivity(new Intent(getContext(), CoinDetailActivity.class).putExtra("coin", coin.getSymbol().toUpperCase()).putExtra("price", CurrencyUtils.toSelectedCurrency(getContext(),coin.getPrice())));
                         /*FavoriteCoin favoriteCoin = new FavoriteCoin(exchange.getName(),coin.getName(), coin.getSymbol());
                         Realm.getDefaultInstance().beginTransaction();
                         Realm.getDefaultInstance().insertOrUpdate(favoriteCoin);
@@ -172,7 +174,6 @@ public class CoinListFragment extends BaseCustomFragment implements ContractCoin
             }else {
                 adaper.swapContent(listGeneral);
             }
-            adaper.swapContent(list);
             adaper.notifyDataSetChanged();
             adaper.applyFilter(((MainActivity) getActivity()).getEtSearch().getText().toString().trim());
             ((MainActivity) getActivity()).getSwipeRefreshLayout().setRefreshing(false);

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color3">
+
+        <TextView android:id="@+id/txt_page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/alerts"
+            android:textSize="22sp"
+            android:layout_centerInParent="true"
+            />
+        <EditText android:id="@+id/et_search_coin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_coin"
+            android:padding="5dp"
+            android:textColor="#818181"
+            android:visibility="gone"
+            android:background="@drawable/row_background"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <android.support.v7.widget.CardView android:id="@+id/cv_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:padding="5dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+    <EditText android:id="@+id/et_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_monetization_on_teal_300_24dp"
+        android:drawableLeft="@drawable/ic_monetization_on_teal_300_24dp"
+        android:drawablePadding="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="@string/type_price"
+        android:textColor="@color/grid_light_grey"
+        android:layout_marginEnd="30dp"
+        android:inputType="numberDecimal"
+        />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_below="@+id/et_price"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/btn_below"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_alert_type_selector"
+            android:checked="true"
+            android:button="@null"
+            android:textColor="@color/grid_light_grey"
+            android:drawableLeft="@null"
+            android:drawableRight="@null"
+            android:drawableEnd="@null"
+            android:drawableStart="@null"
+            android:gravity="center"
+            android:textSize="@dimen/medium_size_txt"
+            android:textStyle="bold"
+            android:minLines="2"
+            android:padding="10dp"
+            android:text="@string/below"
+            />
+
+        <TextView
+            android:id="@+id/tab_card_middle"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/background_light_grey"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <RadioButton
+            android:id="@+id/btn_above"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_alert_type_selector"
+            android:button="@null"
+            android:textColor="@color/grid_light_grey"
+            android:textSize="@dimen/medium_size_txt"
+            android:drawableLeft="@null"
+            android:drawableRight="@null"
+            android:drawableEnd="@null"
+            android:drawableStart="@null"
+            android:gravity="center"
+            android:minLines="2"
+            android:padding="10dp"
+            android:text="@string/above"
+            />
+    </RadioGroup>
+
+        <Button android:id="@+id/btn_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/done"
+            android:layout_below="@+id/radio_group"
+            android:layout_marginTop="20dp"
+            android:background="@color/teal"
+           />
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

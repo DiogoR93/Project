@@ -3,6 +3,7 @@
     package="drapps.cryptoheadquarters">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MainApplication"
@@ -11,6 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
 
        <!-- <receiver android:name=".widget.CoinListWidget" >
             <intent-filter>
@@ -59,6 +61,7 @@
         <activity
             android:name=".coinlist.CoinDetailActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".AlarmsActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -67,6 +70,8 @@
         <service android:name=".widget.CoinWidgetService"
             android:enabled="true"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service android:name=".AlarmService" />
+        <receiver android:name=".AlarmReceiver"/>
 
     </application>
 

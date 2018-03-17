@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:elevation="5dp">
 
         <RadioButton
             android:id="@+id/tab_card_general"
@@ -69,10 +70,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-    <View
+   <!-- <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:background="@drawable/gradient_shadow"
-        android:layout_below="@+id/tabs_types"/>
+        android:layout_below="@+id/tabs_types"/>-->
 
 </RelativeLayout>

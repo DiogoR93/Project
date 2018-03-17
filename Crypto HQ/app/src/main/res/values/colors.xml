@@ -16,4 +16,5 @@
     <color name="progress_green">#66bb6a</color>
     <color name="icon_green">#227744</color>
     <color name="transparent">#00000000</color>
+    <color name="teal">#4DB6AC</color>
 </resources>

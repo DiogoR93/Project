@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import drapps.cryptoheadquarters.AlarmsActivity;
 import drapps.cryptoheadquarters.R;
 import drapps.cryptoheadquarters.Utils;
 import drapps.cryptoheadquarters.base.BaseCustomActivity;
@@ -70,6 +71,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
     ImageView ivRight;
     ImageView ivCoin;
     ImageView ivFavorite;
+    ImageView ivAlarm;
     int requestGraphCode = 0;
     GraphDataResponse response;
     String coinSymbol;
@@ -134,6 +136,13 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
                 }
             }
         });
+
+        ivAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoinDetailActivity.this, AlarmsActivity.class).putExtra("coin", coinSymbol.toLowerCase()));
+            }
+        });
     }
 
     @Override
@@ -149,6 +158,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         }
         tvCoinSymbol.setText(coinSymbol.toUpperCase());
         tvTitle.setText(coinSymbol.toUpperCase());
+        tvPrice.setText(getIntent().getStringExtra("price"));
         adView.loadAd(new AdRequest.Builder().setGender(AdRequest.GENDER_MALE).addKeyword("Crypto").addKeyword("Cryptocurrency").addKeyword("Finance").addKeyword("Stocks").addKeyword("market").addKeyword("exchange").build());
         if(Realm.getDefaultInstance().where(FavoriteCoin.class).equalTo("coinSymbol", coinSymbol).findFirst() != null){
             ivFavorite.setImageResource(R.drawable.ic_star_white_36dp);
@@ -175,6 +185,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         loadingView = findViewById(R.id.loading_view);
         adView = findViewById(R.id.adView);
         ivFavorite = findViewById(R.id.iv_favorite);
+        ivAlarm = findViewById(R.id.iv_alarm);
     }
 
     @Override
@@ -202,7 +213,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
         pbMarket.setMax(response.getTotalCap());
         pbMarket.setProgress(response.getMarketCap());
         tvMarketCapPercentage.setText(String.format("%.1f",(response.getMarketCap()/response.getTotalCap())*100) + "%");
-        String format =  "%.4f";
+       /* String format =  "%.4f";
         if(Realm.getDefaultInstance().where(Settings.class).findFirst().getCurrency() == 0){
             if(response.getPriceUSD() > 1){
                 format = "%.2f";
@@ -212,7 +223,7 @@ public class CoinDetailActivity extends BaseCustomActivity implements ContractCo
             tvPrice.setText(String.format(format, response.getPriceUSD()) + "$");
         }else{
             tvPrice.setText(String.format(format, response.getPriceEUR()) + "€");
-        }
+        }*/
 
         if(response.getVolume() > 1000000){
             tvVolume.setText(String.valueOf(response.getVolume()/1000000)+"M");

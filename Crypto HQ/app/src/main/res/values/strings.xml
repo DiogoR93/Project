@@ -22,5 +22,11 @@
     <string name="widget_empty_text" >This, will list your favorite coins. Please, add some coins to your favorite list and restart the widget.</string>
     <string name="general_coins">General</string>
     <string name="favorite_coins">Favorite</string>
+    <string name="is_at">is at</string>
+    <string name="below">Below</string>
+    <string name="above">Above</string>
+    <string name="type_price">Type price...</string>
+    <string name="alerts">Alerts</string>
+    <string name="done">Done</string>
 
 </resources>
